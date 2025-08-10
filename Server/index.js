@@ -17,7 +17,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cors({
     origin:"http://localhost:5173",
-    credential:true
+    credentials:true
 }))
 
 app.use("/api/v1/user",userRoute);
