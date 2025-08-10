@@ -15,7 +15,11 @@ const PORT = process.env.PORT;
 //     console.log("Hello World")
 // })
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+    origin:"http://localhost:5173",
+    Credential:true
+}))
+
 app.use("/api/v1/user",userRoute);
 app.use(cookieParser());
 app.use(express.urlencoded({extended:true}))
