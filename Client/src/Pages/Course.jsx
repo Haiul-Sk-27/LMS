@@ -1,6 +1,7 @@
 import React from 'react';
+import CourseCard from '@/components/CourseCard';
 
-const courses = [
+export const coursesJson = [
   {
     "id": 1,
     "title": "Full Stack Web Development",
@@ -37,14 +38,14 @@ const courses = [
 const Course = () => {
   return (
     <div className='bg-gray-100 pt-14'>
-      <div className='min-h-screen max-w-7xl max-auto py-10'>
+      <div className='min-h-screen max-w-7xl mx-auto py-10'>
         <div className='px-4'>
           <h1 className='text-4xl font-bold text-center text-gray-800 mb-4'>Our Courses</h1>
-          <p>Explore our curated courses to boost your skills and career. Whether you're a beginner or an expert, we have something for everyone</p>
+          <p className='text-center text-gray-600 mb-5'>Explore our curated courses to boost your skills and career. Whether you're a beginner or an expert, we have something for everyone</p>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
             {
-              courses?.map((course) =>{
-                <CourseCard course={course}/>
+              coursesJson?.map((course) =>{
+                return<CourseCard course={course}/>
               })
             }
           </div>

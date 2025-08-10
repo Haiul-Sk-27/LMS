@@ -4,6 +4,7 @@ import Course from "./Pages/Course"
 import Login from "./Pages/auth/Login"
 import Home from "./Pages/Home"
 import Signup from "./Pages/auth/Signup"
+import Footer from "./components/Footer"
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router}/>
+      <Footer/>
     </>
   )
 }
