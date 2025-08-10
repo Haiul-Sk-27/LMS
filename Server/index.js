@@ -16,7 +16,7 @@ const PORT = process.env.PORT;
 // })
 app.use(express.json());
 app.use(cors({
-    origin:"https://lms-eight-brown.vercel.app",
+    origin:true,
     credentials:true
 }))
 
