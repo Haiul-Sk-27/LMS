@@ -3,15 +3,13 @@ import { GraduationCap } from 'lucide-react';
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { setUser } from '@/redux/authSlice';
-import { toast } from 'sonner';
+import { useSelector } from 'react-redux';
+import store from '@/redux/store';
+
 
 const Navbar = () => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const { user } = useSelector(store => store.auth)
+   
+    const {user} = useSelector (store=>store.auth)
 
     const logoutHandler = async (e) => {
         try {
