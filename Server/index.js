@@ -13,7 +13,7 @@ const PORT = process.env.PORT;
 
 // app.get('/',(req,res) =>{
 //     console.log("Hello World")
-// })
+
 app.use(express.json());
 app.use(cors({
     origin:true,
