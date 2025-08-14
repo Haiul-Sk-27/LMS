@@ -3,27 +3,35 @@ import { GraduationCap } from 'lucide-react';
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import store from '@/redux/store';
-
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { setUser } from '@/redux/authSlice';
+import { toast } from 'sonner';
 
 const Navbar = () => {
-   
-    const {user} = useSelector (store=>store.auth)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { user } = useSelector(store => store.auth)
 
-    const logoutHandler = async (e) => {
+    const logoutHandler = async () => {
         try {
-            const res = await axios.get('http://localhost:3002/api/v1/user/logout', {withCredentials:true});
-            if(res.data.success){
-                navigate('/')
-                dispatch(setUser(null))
-                toast.success(res.data.message)
+            const res = await axios.post(
+                'http://localhost:3002/api/v1/user/logout',
+                {},
+                { withCredentials: true }
+            );
+
+            if (res.data.success) {
+                dispatch(setUser(null));
+                navigate('/');
+                toast.success(res.data.message);
             }
         } catch (error) {
-            console.log(error);
-            toast.error(error.response.data.message)
+            console.error("Logout error:", error);
+            toast.error(error.response?.data?.message);
         }
-    }
+    };
+
     return (
         <div className='bg-gray-900 z-50 w-full py-3 fixed top-0'>
             <div className='max-w-7xl mx-auto flex justify-between'>
