@@ -6,6 +6,10 @@ import Home from "./Pages/Home"
 import Signup from "./Pages/auth/Signup"
 import Footer from "./components/Footer"
 import Profile from "./Pages/Profile"
+import Admin from "./Pages/admin/admin"
+import Dashbord from "./Pages/admin/Dashbord"
+import Courses from "./Pages/admin/Courses"
+import CreateCourse from "./Pages/admin/CreateCourse"
 
 const router = createBrowserRouter([
   {
@@ -27,6 +31,24 @@ const router = createBrowserRouter([
   {
     path:"/profile",
     element:<><Navbar/><Profile/></>
+  },
+  {
+    path:"/admin",
+    element:<><Navbar/><Admin/></>,
+    children:[
+      {
+        path: "dashboard",
+        element:<Dashbord/>
+      },
+      {
+        path:"course",
+        element:<Courses/>
+      },
+      {
+        path:"course/create",
+        element:<CreateCourse/>
+      }
+    ]
   }
 ]);
 
