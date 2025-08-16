@@ -70,16 +70,16 @@ const CreateCourse = () => {
                         </SelectTrigger>
                         <SelectContent className="bg-gray-100">
                             <SelectGroup >
-                                <SelectLabel className="hover:bg-gray-600">Category</SelectLabel>
-                                <SelectItem value="Next Js" className="hover:bg-gray-600">Next Js</SelectItem>
-                                <SelectItem value="Data Science" className="hover:bg-gray-600">Data Science</SelectItem>
-                                <SelectItem value="Frontend Development" className="hover:bg-gray-600">Frontend Development</SelectItem>
-                                <SelectItem value="Backend Development" className="hover:bg-gray-600">Backend Development</SelectItem>
-                                <SelectItem value="MernStack Development" className="hover:bg-gray-600">MernStack Development</SelectItem>
-                                <SelectItem value="Javascript" className="hover:bg-gray-600">Javascript</SelectItem>
-                                <SelectItem value="Python" className="hover:bg-gray-600">Python</SelectItem>
-                                <SelectItem value="Docker" className="hover:bg-gray-600">Docker</SelectItem>
-                                <SelectItem value="MongoDB" className="hover:bg-gray-600">MongoDB</SelectItem>
+                                <SelectLabel className="hover:bg-gray-600 hover:text-white">Category</SelectLabel>
+                                <SelectItem value="Next Js" className="hover:bg-gray-600 hover:text-white">Next Js</SelectItem>
+                                <SelectItem value="Data Science" className="hover:bg-gray-600 hover:text-white">Data Science</SelectItem>
+                                <SelectItem value="Frontend Development" className="hover:bg-gray-600 hover:text-white">Frontend Development</SelectItem>
+                                <SelectItem value="Backend Development" className="hover:bg-gray-600 hover:text-white">Backend Development</SelectItem>
+                                <SelectItem value="MernStack Development" className="hover:bg-gray-600 hover:text-white">MernStack Development</SelectItem>
+                                <SelectItem value="Javascript" className="hover:bg-gray-600 hover:text-white">Javascript</SelectItem>
+                                <SelectItem value="Python" className="hover:bg-gray-600 hover:text-white">Python</SelectItem>
+                                <SelectItem value="Docker" className="hover:bg-gray-600 hover:text-white">Docker</SelectItem>
+                                <SelectItem value="MongoDB" className="hover:bg-gray-600 hover:text-white">MongoDB</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
