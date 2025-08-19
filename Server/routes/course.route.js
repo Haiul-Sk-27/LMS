@@ -1,6 +1,6 @@
 import express from 'express'
 import { isAuthenticated } from '../middleware/isAuthenticated.js';
-import { createCourse, editCourse,  getCourseById, getCreatorCourses, getPublishedCourse} from '../controllers/course.controller.js';
+import { createCourse, createLecture, editCourse,  editLecture,  getCourseById, getCourseLecture, getCreatorCourses, getPublishedCourse, removeLecture} from '../controllers/course.controller.js';
 import uploadProfilePic from '../middleware/multer.js';
 
 const router = express.Router();
@@ -10,5 +10,9 @@ router.get('/published-courses',getPublishedCourse);
 router.get('/',isAuthenticated,getCreatorCourses);
 router.put("/course/:courseId", uploadProfilePic.single("courseThumbnail"), editCourse);
 router.get("/:courseId",isAuthenticated,getCourseById);
+router.post("/:courseId/lecture",isAuthenticated,createLecture)
+router.post("/:courseId/lecture",isAuthenticated,getCourseLecture)
+router.post("/:courseId/lecture:lectureId",isAuthenticated,editLecture)
+router.delete("/:courseId/lecture",isAuthenticated,removeLecture)
 
 export default router
