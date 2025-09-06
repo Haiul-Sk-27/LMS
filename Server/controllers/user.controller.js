@@ -1,7 +1,9 @@
 import { json } from "express";
 import { User } from "../models/user.models.js";
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+import fs from 'fs';
+import path from "path";
 
 export const register = async (req, res) => {
     try {
@@ -101,36 +103,38 @@ export const logout = async (__, res) => {
 }
 
 export const updateProfile = async (req, res) => {
-  try {
-    const userId = req.id; // Now this is set
-    const { name, description } = req.body;
-    const file = req.file;
+    try {
+        const userId = req.id; 
+        const { name, description } = req.body;
+        const file = req.file;
 
-    if (!name?.trim() || !description?.trim() || !file) {
-      return res.status(400).json({
-        success: false,
-        message: "All fields (name, description, profile picture) are required",
-      });
+        if (!name?.trim() || !description?.trim() || !file) {
+            console.log("❌ Missing required fields");
+            return res.status(400).json({
+                success: false,
+                message: "All fields (name, description, profile picture) are required",
+            });
+        }
+
+        const user = await User.findById(userId).select("-password");
+        
+        if (user.photoUrl) {
+            const oldFilePath = path.join(process.cwd(), user.photoUrl);
+            console.log("Deleting old file:", oldFilePath); 
+            fs.unlink(oldFilePath, (err) => { });
+        }
+
+        user.photoUrl = `/uploads/profile/${file.filename}`;
+
+        await user.save();
+
+        return res.status(200).json({
+            message: "Profile updated successfully",
+            success: true,
+            user,
+        });
+    } catch (error) {
+        console.error("🔥 Error in updateProfile:", error);
+        return res.status(500).json({ success: false, message: "Failed to update profile" });
     }
-
-    const user = await User.findById(userId).select("-password");
-    if (!user) {
-      return res.status(404).json({ message: "User not found", success: false });
-    }
-
-    if (name) user.name = name;
-    if (description) user.description = description;
-    if (file) user.photoUrl = `/uploads/profile/${file.filename}`;
-
-    await user.save();
-
-    return res.status(200).json({
-      message: "Profile updated successfully",
-      success: true,
-      user,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ success: false, message: "Failed to update profile" });
-  }
 };

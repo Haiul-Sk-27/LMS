@@ -1,5 +1,7 @@
 import { Course } from "../models/course.model.js";
 import { Lecture } from "../models/lecture.model.js";
+import path from 'path';
+import fs from 'fs'
 
 export const createCourse = async (req,res) =>{
     try{
@@ -77,49 +79,48 @@ export const getCreatorCourses = async (req, res)=>{
 }
 
 export const editCourse = async (req, res) => {
-    
   try {
     const courseId = req.params.courseId;
     const { courseTitle, subTitle, description, category, courseLevel, coursePrice } = req.body;
     const file = req.file;
 
-    let course = await Course.findById(courseId).populate("lectures");
-    if (!course) {
-      return res.status(404).json({
-        message: "Course not found!"
+    if (!courseTitle || !subTitle || !description || !category || !courseLevel || !coursePrice || !file) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields (courseTitle, subTitle, description, category, courseLevel, coursePrice, file) are required",
       });
     }
 
-    let courseThumbnail;
-    if (file) {
-      courseThumbnail = `/uploads/course/${file.filename}`;
+    let course = await Course.findById(courseId).populate("lectures");
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found!",
+      });
     }
 
-    const updateData = {
-      courseTitle,
-      subTitle,
-      description,
-      category,
-      courseLevel,
-      coursePrice,
-      ...(courseThumbnail && { courseThumbnail })
-    };
+    if (course.courseThumbnail) {
+      const oldFilePath = path.join(process.cwd(), course.courseThumbnail);
+      fs.unlink(oldFilePath, (err) => {});
+    }
+    course.courseThumbnail = `/uploads/thumbnails/${file.filename}`;
 
-    course = await Course.findByIdAndUpdate(courseId, updateData, { new: true });
+    await course.save();
 
     return res.status(200).json({
       success: true,
       course,
-      message: "Course updated successfully"
+      message: "Course updated successfully",
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
+      success: false,
       message: "Failed to update course",
-      success: false
     });
   }
 };
+
 
 export const getCourseById = async(req,res) => {
     try{
