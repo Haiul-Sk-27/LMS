@@ -1,8 +1,8 @@
 import express from 'express'
 import { isAuthenticated } from '../middleware/isAuthenticated.js';
 import { createCourse, createLecture, editCourse,  editLecture,  getCourseById, getCourseLecture, getCreatorCourses, getPublishedCourse, removeLecture, togglePublishedCourse} from '../controllers/course.controller.js';
-import uploadProfilePic from '../middleware/multer.js';
 import { uploadThumbnail } from '../middleware/multer-thumbnail.js';
+import { uploadVideo } from '../middleware/multer-video.js';
 
 const router = express.Router();
 
@@ -12,9 +12,9 @@ router.get('/',isAuthenticated,getCreatorCourses);
 router.put("/course/:courseId", uploadThumbnail, editCourse);
 router.get("/:courseId",isAuthenticated,getCourseById);
 router.post("/:courseId/lecture",isAuthenticated,createLecture)
-router.post("/:courseId/lectures",isAuthenticated,getCourseLecture)
-router.put("/:courseId/lecture/:lectureId",isAuthenticated,editLecture)
-router.delete("/:courseId/lecture",isAuthenticated,removeLecture)
+router.get("/:courseId/lectures",isAuthenticated,getCourseLecture)
+router.put("/:courseId/lecture/:lectureId",isAuthenticated,uploadVideo,editLecture)
+router.delete("/:lectureId/lecture",isAuthenticated,removeLecture)
 router.patch("/:courseId",togglePublishedCourse)
 
 export default router

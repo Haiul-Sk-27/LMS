@@ -4,12 +4,10 @@ import fs from "fs";
 
 const videoDir = path.join(process.cwd(), "uploads/videos");
 
-// Create uploads/videos directory if it doesn't exist
 if (!fs.existsSync(videoDir)) {
   fs.mkdirSync(videoDir, { recursive: true });
 }
 
-// Multer storage configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, videoDir);
@@ -20,7 +18,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// Allow only specific video formats
 const fileFilter = (req, file, cb) => {
   const allowedExtensions = /mp4|mov|avi|mkv/;
   const extname = allowedExtensions.test(
@@ -34,10 +31,9 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Export multer middleware
 export const uploadVideo = multer({
   storage,
-  limits: { fileSize: 200 * 1024 * 1024 }, // 200MB max
+  limits: { fileSize: 200 * 1024 * 1024 },
   fileFilter,
 }).single("video");
 
