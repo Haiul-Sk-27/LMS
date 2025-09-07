@@ -212,15 +212,13 @@ export const editLecture = async (req, res) => {
       return res.status(404).json({ success: false, message: "Lecture not found!" });
     }
 
-    // Update title and preview
     if (lectureTitle) lecture.lectureTitle = lectureTitle;
     lecture.isPreviewFree = isPreviewFree;
 
-    // If new video uploaded, delete old video
     if (req.file) {
       if (lecture.videoUrl) {
         const oldPath = path.join(process.cwd(), lecture.videoUrl);
-        fs.unlink(oldPath, (err) => {}); // ignore errors
+        fs.unlink(oldPath, (err) => {});
       }
 
       lecture.videoUrl = `/uploads/videos/${req.file.filename}`;
@@ -229,7 +227,6 @@ export const editLecture = async (req, res) => {
 
     await lecture.save();
 
-    // Ensure lecture is in the course
     const course = await Course.findById(courseId);
     if (course && !course.lectures.includes(lecture._id)) {
       course.lectures.push(lecture._id);
@@ -260,10 +257,9 @@ export const removeLecture = async(req, res)=>{
                 message:"Lecture not found!"
             })
         } 
-         //Remove the lecture refference from the associated course
          await Course.updateOne(
-            {lectures: lectureId}, //find the course that contains the lecture
-            {$pull:{lectures:lectureId}} // Remove the lectures id from the lectures array
+            {lectures: lectureId}, 
+            {$pull:{lectures:lectureId}} 
          );
          return res.status(200).json({
             success:true,

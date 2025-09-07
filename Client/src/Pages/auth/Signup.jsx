@@ -27,7 +27,7 @@ const Signup = () => {
         e.preventDefault(),
         console.log(user)
         try {
-            const response = await axios.post('https://lms-yuq1.onrender.com/api/v1/user/register', user, {
+            const response = await axios.post('http://localhost:3002/api/v1/user/register', user, {
                 headers:{
                     "Content-Type":"application/json"
                 },

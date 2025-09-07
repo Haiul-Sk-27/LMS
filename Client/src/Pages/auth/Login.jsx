@@ -51,8 +51,8 @@ const Login = () => {
                 <h1 className='text-2xl font-bold text-center text-gray-800 mb-4'>Welcome Back</h1>
                 <p className='text-center text-gray-600 mb-8'>Please Login in to your Account</p>
                
-                <div className='mb-4'>
-                    <Label>Email Address</Label>
+                <div className='mb-2'>
+                    <Label className="mb-1">Email Address</Label>
                     <Input placeholder="Enter Your Email" 
                     type="email"
                     name="email" 
@@ -60,8 +60,8 @@ const Login = () => {
                     onChange={handleChange}
                     />
                 </div>
-                <div className='mb-4'>
-                    <Label>Password</Label>
+                <div className='mb-2'>
+                    <Label className="mb-1">Password</Label>
                     <Input placeholder="Enter Your Password" 
                     type="password"
                      name="password" 

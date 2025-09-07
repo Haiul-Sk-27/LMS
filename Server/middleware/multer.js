@@ -33,7 +33,7 @@ const fileFilter = (req, file, cb) => {
 
 const uploadProfilePic = multer({
   storage,
-  limits: { fileSize: 2 * 1024 * 1024 }, // Max 2MB
+  limits: { fileSize: 2 * 1024 * 1024 }, 
   fileFilter,
 });
 
