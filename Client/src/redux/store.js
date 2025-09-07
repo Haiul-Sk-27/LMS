@@ -13,7 +13,6 @@ import {
   REGISTER,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { setLecture } from './lectureSlice'
 
 const persistConfig = {
     key: 'root',

@@ -8,7 +8,7 @@ const courseSlice = createSlice({
     reducers:{
         //actions
         setCourse:(state, action) => {
-            console.log("Course_Payload:",action.payload)
+            console.log("Course_Payload :",action.payload)
             state.course = action.payload;
         }
     }

@@ -5,6 +5,7 @@ import {
     TableBody,
     TableCaption,
     TableCell,
+    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
@@ -75,11 +76,10 @@ const Course = () => {
                 }
             } catch (error) {
                 console.log(error);
-
             }
         }
         getCreatorCourse()
-    })
+    },dispatch)
     return (
         <div className='md:p-10 p-4 w-full h-screen'>
             <Button className="bg-blue-500" onClick={() => navigate('create')}>Create Course</Button>
@@ -97,7 +97,7 @@ const Course = () => {
                     {course?.map((course) => (
                         <TableRow key={course._id}>
                             <TableCell className="md:w-[300px] flex items-center gap-2 ">
-                                <img src={course?.courseThumbnail} alt="Thumbnail" className='w-20 hidden md:block rounded-sm'/>
+                                <img src={course.courseThumbnail} alt="Thumbnail" className='w-20 hidden md:block rounded-sm'/>
                                 {course.courseTitle}
                             </TableCell>
                             <TableCell className="font-medium text-right">{course.coursePrice || "NA"}</TableCell>
@@ -110,8 +110,6 @@ const Course = () => {
                                     <Edit />
                                 </Button>
                             </TableCell>
-
-
                         </TableRow>
                     ))}
                 </TableBody>

@@ -53,7 +53,7 @@ const CreateCourse = () => {
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex eius necessitatibus fugit vel distinctio architecto, ut ratione rem nobis eaque?</p>
             <div className='mt-10'>
                 <div>
-                    <Label>Title</Label>
+                    <Label className="mb-1">Title</Label>
                     <Input 
                     type="text" 
                     value={courseTitle} 
@@ -63,7 +63,7 @@ const CreateCourse = () => {
                     />
                 </div>
                 <div className='mt-4 mb-5'>
-                    <Label>Category</Label>
+                    <Label className="mb-1">Category</Label>
                     <Select onValueChange={getSelectedCategory}>
                         <SelectTrigger className="w-[180px] bg-white">
                             <SelectValue placeholder="Select a category" />

@@ -25,6 +25,9 @@ app.use(cookieParser());
 // // Static file serving
 // app.use("/uploads/profilePics", express.static(path.join(process.cwd(), "uploads/profilePic")));
 
+app.use("/uploads/thumbnails", express.static(path.join(process.cwd(), "uploads/thumbnails")));
+
+
 // Routes
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/course", courseRoute);

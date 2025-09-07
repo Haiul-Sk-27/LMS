@@ -23,6 +23,8 @@ import { toast } from 'sonner'
 const CourseTab = () => {
     const params = useParams()
     const id = params.courseId
+
+    console.log("Course Id:",id)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {course} = useSelector(store=> store.course)
@@ -34,7 +36,7 @@ const CourseTab = () => {
 
     const getCourseById = async () => {
         try {
-            const res = await axios.get(`https://lms-nswg.onrender.com/api/v1/course/${id}`, {withCredentials:true})
+            const res = await axios.get(`http://localhost:3002/api/v1/course/course/${id}`, {withCredentials:true})
             if(res.data.success){{
                 setSelectedCourse(res.data.course)
             }}
@@ -90,11 +92,13 @@ const CourseTab = () => {
         formData.append("category", input.category);
         formData.append("courseLevel", input.courseLevel);
         formData.append("coursePrice", input.coursePrice);
-        formData.append("file", input.courseThumbnail);
+        formData.append("courseThumbnail", input.courseThumbnail);
+
+        console.log("FromData:",formData)
 
         try {
             setLoading(true)
-            const res = await axios.put(`https://lms-nswg.onrender.com/api/v1/course/${id}`, formData, {
+            const res = await axios.put(`http://localhost:3002/api/v1/course/course/${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 },
