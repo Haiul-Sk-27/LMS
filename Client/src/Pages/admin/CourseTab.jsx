@@ -23,8 +23,6 @@ import { toast } from 'sonner'
 const CourseTab = () => {
     const params = useParams()
     const id = params.courseId
-
-    console.log("Course Id:",id)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {course} = useSelector(store=> store.course)
@@ -34,20 +32,20 @@ const CourseTab = () => {
     const [loading, setLoading] = useState(false)
     const [publish, setPublish] = useState(false)
 
-    const getCourseById = async () => {
-        try {
-            const res = await axios.get(`http://localhost:3002/api/v1/course/course/${id}`, {withCredentials:true})
-            if(res.data.success){{
-                setSelectedCourse(res.data.course)
-            }}
-        } catch (error) {
-            console.log(error);
+    // const getCourseById = async () => {
+    //     try {
+    //         const res = await axios.get(`http://localhost:3002/api/v1/course/${id}`, {withCredentials:true})
+    //         if(res.data.success){{
+    //             setSelectedCourse(res.data.course)
+    //         }}
+    //     } catch (error) {
+    //         console.log(error);
             
-        }
-    }
-    useEffect(()=>{
-        getCourseById()
-    })
+    //     }
+    // }
+    // useEffect(()=>{
+    //     getCourseById()
+    // })
 
     const [input, setInput] = useState({
         courseTitle:selectedCourse?.courseTitle,
@@ -120,7 +118,7 @@ const CourseTab = () => {
 
     const togglePublishUnpublish = async(action) => {
         try {
-            const res = await axios.patch(`https://lms-nswg.onrender.com/api/v1/course/${id}`, {
+            const res = await axios.patch(`http://localhost:3002/api/v1/course/${id}`, {
                 params: {
                     action
                 },
