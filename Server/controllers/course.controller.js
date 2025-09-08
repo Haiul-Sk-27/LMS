@@ -161,6 +161,15 @@ export const removeCourse = async (req, res) => {
 
     await Lecture.deleteMany({ _id: { $in: course.lectures }});
 
+    if(course.courseThumbnail){
+        const filePath = path.join(process.cwd(),course.courseThumbnail)
+        fs.unlink(filePath,(err) => {
+            if(err){
+                console.log("Thumbnail delete error:",err)
+            }
+        })
+    }
+
     await Course.findByIdAndDelete(courseId);
 
     return res.status(200).json({

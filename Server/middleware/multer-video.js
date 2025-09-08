@@ -36,5 +36,3 @@ export const uploadVideo = multer({
   limits: { fileSize: 200 * 1024 * 1024 },
   fileFilter,
 }).single("video");
-
-
