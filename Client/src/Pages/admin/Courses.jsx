@@ -66,7 +66,6 @@ const Course = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { course } = useSelector(store => store.course)
-    console.log("Course:",course)
     useEffect(() => {
         const getCreatorCourse = async () => {
             try {

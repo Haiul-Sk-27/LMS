@@ -1,7 +1,7 @@
 import CourseCard from '@/components/CourseCard'
 import Hero from '@/components/Hero'
 import React from 'react'
-import { coursesJson } from './Course'
+import { coursesJson } from './Courses'
 
 const Home = () => {
   return (

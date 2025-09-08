@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Navbar from "./components/Navbar"
-import Course from "./Pages/Course"
+import Course from "./Pages/Courses"
 import Login from "./Pages/auth/Login"
 import Home from "./Pages/Home"
 import Signup from "./Pages/auth/Signup"
