@@ -32,7 +32,7 @@ const CourseTab = () => {
     const [loading, setLoading] = useState(false)
     const [publish, setPublish] = useState(false)
 
-    // const getCourseById = async () => {
+    // const removeCourse = async () => {
     //     try {
     //         const res = await axios.get(`http://localhost:3002/api/v1/course/${id}`, {withCredentials:true})
     //         if(res.data.success){{

@@ -147,6 +147,35 @@ export const getCourseById = async(req,res) => {
     }
 }
 
+export const removeCourse = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found!",
+      });
+    }
+
+    await Lecture.deleteMany({ _id: { $in: course.lectures }});
+
+    await Course.findByIdAndDelete(courseId);
+
+    return res.status(200).json({
+      success: true,
+      message: "Course and its lectures removed successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to remove course",
+    });
+  }
+};
+
 //lecture controllers
 
 export const createLecture = async(req, res)=>{
