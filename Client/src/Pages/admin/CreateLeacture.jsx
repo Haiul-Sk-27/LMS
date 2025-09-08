@@ -56,14 +56,14 @@ const CreateLecture = () => {
     <div className='p-4 md:p-10 md:pr-20 h-screen'>
       <h1 className='text-2xl font-bold mb-2'>Lets Add <span className='text-blue-600'>Lectures</span></h1>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex eius necessitatibus fugit vel distinctio architecto, ut ratione rem nobis eaque?</p>
-      <div className='mt-10 space-y-5'>
+      <div className='mt-5 space-y-5'>
         <div>
-            <Label>Title</Label>
+            <Label className="mb-1">Title</Label>
             <Input type="text" placeholder="Your Lecture Name" className="bg-white" value={lectureTitle} onChange={(e)=>setLectureTitle(e.target.value)}/>
         </div>
         <div className='flex gap-2'>
             <Button onClick={()=>navigate(`/admin/course/${params.courseId}`)} variant="outline">Back to Course</Button>
-            <Button disabled={loading} onClick={createLectureHandler} className="bg-gray-800 hover:bg-gray-800">
+            <Button disabled={loading} onClick={createLectureHandler} className="bg-gray-600 text-white hover:bg-gray-800">
                 {
                     loading ? <><Loader2 className='mr-1 h-4 w-4 animate-spin'/>Please wait</> : "Create Lecture"
                 }

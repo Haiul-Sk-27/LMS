@@ -32,17 +32,17 @@ const CourseTab = () => {
     const [loading, setLoading] = useState(false)
     const [publish, setPublish] = useState(false)
 
-    // const removeCourse = async () => {
-    //     try {
-    //         const res = await axios.get(`http://localhost:3002/api/v1/course/${id}`, {withCredentials:true})
-    //         if(res.data.success){{
-    //             setSelectedCourse(res.data.course)
-    //         }}
-    //     } catch (error) {
-    //         console.log(error);
-            
-    //     }
-    // }
+    const removeCourse = async () => {
+        try {
+            const res = await axios.delete(`http://localhost:3002/api/v1/course/${id}`, {withCredentials:true})
+            if(res.data.success){{
+                setSelectedCourse(res.data.message)
+                navigate('/admin/course');
+            }}
+        } catch (error) {
+            console.log(error);
+        }
+    }
     // useEffect(()=>{
     //     getCourseById()
     // })
@@ -96,7 +96,7 @@ const CourseTab = () => {
 
         try {
             setLoading(true)
-            const res = await axios.put(`http://localhost:3002/api/v1/course/course/${id}`, formData, {
+            const res = await axios.put(`http://localhost:3002/api/v1/course/${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 },
@@ -143,65 +143,65 @@ const CourseTab = () => {
                     </CardDescription>
                 </div>
                 <div className='space-x-2'>
-                    <Button onClick={()=>togglePublishUnpublish(selectedCourse.isPublished ? "false": "true")} className="bg-gray-800 hover:bg-gray-800">{selectedCourse.isPublished ? "UnPublish": "Publish"}</Button>
-                    <Button variant="destructive">Remove Course</Button>
+                    <Button variant="destructive" onClick={()=>togglePublishUnpublish(selectedCourse.isPublished ? "false": "true")} className="bg-gray-700 hover:bg-gray-800">{selectedCourse.isPublished ? "UnPublish": "Publish"}</Button>
+                    <Button variant="destructive" onClick={removeCourse} className="bg-gray-700">Remove Course</Button>
                 </div>
             </CardHeader>
             <CardContent>
-                <div className='space-y-4 mt-5'>
+                <div className='space-y-4 mt-1'>
                     <div>
-                        <Label>Title</Label>
+                        <Label className='mb-1'>Title</Label>
                         <Input value={input.courseTitle} onChange={changeEventHandler} type="text" name="courseTitle" placeholder="Ex. Fullstack developer" />
                     </div>
                     <div>
-                        <Label>Subtitle</Label>
+                        <Label className="mb-1">Subtitle</Label>
                         <Input value={input.subTitle} onChange={changeEventHandler} type="text" name="subTitle" placeholder="Ex. Become a Fullstack dveloper from zero to hero in 2 months" />
                     </div>
                     <div>
-                        <Label>Description</Label>
+                        <Label className="mb-1">Description</Label>
                          <Input type="text" placeholder="Ex. Become a Fullstack developer from zero to hero in 2 months" />
                     </div>
                     <div className='flex md:flex-row flex-wrap gap-1 items-center md:gap-5'>
                         <div>
-                            <Label>Category</Label>
+                            <Label className="mb-1">Category</Label>
                             <Select defaultValue={input.category} onValueChange={selectCategory}>
                                 <SelectTrigger className="w-[180px]">
                                     <SelectValue placeholder="Select a category" />
                                 </SelectTrigger>
-                                <SelectContent>
-                                    <SelectGroup>
-                                        <SelectLabel>Category</SelectLabel>
-                                        <SelectItem value="Next Js">Next Js</SelectItem>
-                                        <SelectItem value="Data Science">Data Science</SelectItem>
-                                        <SelectItem value="Frontend Development">Frontend Development</SelectItem>
-                                        <SelectItem value="Backend Development">Backend Development</SelectItem>
-                                        <SelectItem value="MernStack Development">MernStack Development</SelectItem>
-                                        <SelectItem value="Javascript">Javascript</SelectItem>
-                                        <SelectItem value="Python">Python</SelectItem>
-                                        <SelectItem value="Docker">Docker</SelectItem>
-                                        <SelectItem value="MongoDB">MongoDB</SelectItem>
+                                <SelectContent className='bg-gray-100'>
+                                    <SelectGroup >
+                                        <SelectLabel className="hover:bg-gray-700 rounded">Category</SelectLabel>
+                                        <SelectItem value="Next Js" className="hover:bg-gray-700 rounded">Next Js</SelectItem>
+                                        <SelectItem value="Data Science" className="hover:bg-gray-700 rounded">Data Science</SelectItem>
+                                        <SelectItem value="Frontend Development" className="hover:bg-gray-700 rounded">Frontend Development</SelectItem>
+                                        <SelectItem value="Backend Development" className="hover:bg-gray-700 rounded">Backend Development</SelectItem>
+                                        <SelectItem value="MernStack Development" className="hover:bg-gray-700 rounded">MernStack Development</SelectItem>
+                                        <SelectItem value="Javascript" className="hover:bg-gray-700 rounded">Javascript</SelectItem>
+                                        <SelectItem value="Python" className="hover:bg-gray-700 rounded">Python</SelectItem>
+                                        <SelectItem value="Docker" className="hover:bg-gray-700 rounded">Docker</SelectItem>
+                                        <SelectItem value="MongoDB" className="hover:bg-gray-700 rounded">MongoDB</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
                         </div>
                         <div>
-                            <Label>Course Level</Label>
+                            <Label className="mb-1">Course Level</Label>
                             <Select defaultValue={input.courseLevel} onValueChange={selectCourseLevel}>
                                 <SelectTrigger className="w-[180px]">
                                     <SelectValue placeholder="Select a course level" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="bg-gray-100">
                                     <SelectGroup>
-                                        <SelectLabel>Course Level</SelectLabel>
-                                        <SelectItem value="Beginner">Beginner</SelectItem>
-                                        <SelectItem value="Medium">Medium</SelectItem>
-                                        <SelectItem value="Advance">Advance</SelectItem>
+                                        <SelectLabel className="hover:bg-gray-700 rounded">Course Level</SelectLabel>
+                                        <SelectItem value="Beginner" className="hover:bg-gray-700 rounded">Beginner</SelectItem>
+                                        <SelectItem value="Medium" className="hover:bg-gray-700 rounded">Medium</SelectItem>
+                                        <SelectItem value="Advance" className="hover:bg-gray-700 rounded">Advance</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
                         </div>
                         <div>
-                            <Label>Price in (INR)</Label>
+                            <Label className="mb-1">Price in (INR)</Label>
                             <Input
                                 type="number"
                                 name="coursePrice"
@@ -213,7 +213,7 @@ const CourseTab = () => {
                         </div>
                     </div>
                     <div>
-                        <Label>Course Thumbnail</Label>
+                        <Label className="mb-1">Course Thumbnail</Label>
                         <Input
                             type="file"
                             id="file"
