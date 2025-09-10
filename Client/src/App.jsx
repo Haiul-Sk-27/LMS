@@ -12,6 +12,7 @@ import Courses from "./Pages/admin/Courses"
 import CreateCourse from "./Pages/admin/CreateCourse"
 import UpdateCourse from "./Pages/admin/UpdateCourse"
 import CreateLeacture from "./Pages/admin/CreateLeacture"
+import CourseDetails from "./Pages/CourseDetails"
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
     path:"/profile",
     element:<><Navbar/><Profile/></>
   },
+  {
+    path:"/courses/:courseId",
+    element: <><Navbar/><CourseDetails/></>
+   },
   {
     path:"/admin",
     element:<><Navbar/><Admin/></>,
