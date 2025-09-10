@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
-    origin: "https://lms-mra8z7b29-haiul-sks-projects-06d106b8.vercel.app",
+    origin: "https://lms-eight-brown.vercel.app",
     credentials: true
 }));
 app.use(express.json());
