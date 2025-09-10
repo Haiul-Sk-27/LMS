@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 
 const CreateLecture = () => {
     const params = useParams()
+    console.log("params:",params)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [lectureTitle, setLectureTitle] = useState("")
@@ -20,7 +21,7 @@ const CreateLecture = () => {
     const createLectureHandler = async ()=>{
         try {
             setLoading(true)
-            const res = await axios.post(`http://localhost:3002/api/v1/course/${params?.courseId}/lecture`,{lectureTitle},{
+            const res = await axios.post(`http://localhost:3002/api/v1/course/${params.courseId}/lecture`,{lectureTitle},{
                 headers:{
                     "Content-Type":"application/json"
                 },
@@ -28,6 +29,7 @@ const CreateLecture = () => {
             })
             if(res.data.success){
                 toast.success(res.data.message)
+                navigate(`/admin/course/${params.courseId}`)
             }else{
                 toast.error("Something went wrong")
             }
@@ -41,7 +43,7 @@ const CreateLecture = () => {
     useEffect(()=>{
         const getLectures = async()=> {
             try {
-                const res = await axios.get(`http://localhost:3002/api/v1/course/${params.courseId}/lecture`,{withCredentials:true})
+                const res = await axios.post(`http://localhost:3002/api/v1/course/${params.courseId}/lecture`,{withCredentials:true})
                 if(res.data.success){
                     dispatch(setLecture(res.data.lectures))
                 }
