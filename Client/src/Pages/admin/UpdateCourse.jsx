@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import CourseTab from './courseTab'
+import CourseTab from './CourseTab'
 
 const UpdateCourse = () => {
   return (
