@@ -27,7 +27,7 @@ const Login = () => {
         e.preventDefault()
         console.log(input);
         try {
-            const response = await axios.post('http://localhost:3002/api/v1/user/login', input, {
+            const response = await axios.post('https://lms-yuq1.onrender.com/api/v1/user/login', input, {
                 headers:{
                     "Content-Type":"application/json"
                 },
