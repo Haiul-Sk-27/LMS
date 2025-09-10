@@ -65,7 +65,7 @@ const LectureTab = () => {
         }
         try {
             setLoading(true)
-            const res = await axios.post(`https://lms-nswg.onrender.com/api/v1/course/${courseId}/lecture/${lectureId}`, data, {
+            const res = await axios.post(`https://lms-yuq1.onrender.com/api/v1/course/${courseId}/lecture/${lectureId}`, data, {
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -90,7 +90,7 @@ const LectureTab = () => {
         e.preventDefault()
         try {
             setRemoveLoading(true)
-            const res = await axios.delete(`https://lms-nswg.onrender.com/api/v1/course/lecture/${lectureId}`, { withCredentials: true })
+            const res = await axios.delete(`https://lms-yuq1.onrender.com/api/v1/course/lecture/${lectureId}`, { withCredentials: true })
             if (res.data.success) {
                 navigate(`/admin/course/${courseId}/lecture`)
                 toast.success(res.data.message)
