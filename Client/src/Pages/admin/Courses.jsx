@@ -69,7 +69,7 @@ const Course = () => {
     useEffect(() => {
         const getCreatorCourse = async () => {
             try {
-                const res = await axios.get('http://localhost:3002/api/v1/course/', { withCredentials: true })
+                const res = await axios.get('https://lms-yuq1.onrender.com/api/v1/course/', { withCredentials: true })
                 if (res.data.success) {
                     dispatch(setCourse(res.data.courses))
                 }
