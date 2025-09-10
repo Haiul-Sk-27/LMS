@@ -36,6 +36,7 @@ const CourseTab = () => {
         try {
             const res = await axios.delete(`https://lms-yuq1.onrender.com/api/v1/course/${id}`, {withCredentials:true})
             if(res.data.success){{
+                toast.success("Remove Successull")
                 setSelectedCourse(res.data.message)
                 navigate('/admin/course');
             }}
