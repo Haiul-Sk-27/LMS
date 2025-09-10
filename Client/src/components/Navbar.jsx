@@ -16,7 +16,7 @@ const Navbar = () => {
     const logoutHandler = async () => {
         try {
             const res = await axios.post(
-                'http://localhost:3002/api/v1/user/logout',
+                'https://lms-yuq1.onrender.com/api/v1/user/logout',
                 {},
                 { withCredentials: true }
             );
