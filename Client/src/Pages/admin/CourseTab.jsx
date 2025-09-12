@@ -18,7 +18,8 @@ import { Loader2 } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { toast } from 'sonner';
+import JoditEditor from 'jodit-react'
 
 const CourseTab = () => {
     const params = useParams()
@@ -160,7 +161,7 @@ const CourseTab = () => {
                     </div>
                     <div>
                         <Label className="mb-1">Description</Label>
-                         <Input type="text" placeholder="Ex. Become a Fullstack developer from zero to hero in 2 months" />
+                         <JoditEditor type="text" value={input.description} onChange={changeEventHandler} placeholder="Ex. Become a Fullstack developer from zero to hero in 2 months" />
                     </div>
                     <div className='flex md:flex-row flex-wrap gap-1 items-center md:gap-5'>
                         <div>
