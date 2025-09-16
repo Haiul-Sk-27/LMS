@@ -4,6 +4,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from "path";
+import crypto from "crypto"
+import nodemailer from "nodemailer"
 
 export const register = async (req, res) => {
     try {
@@ -83,8 +85,8 @@ export const login = async (req, res) => {
         return res
             .cookie("token", token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",   // ✅ needed in prod
-                sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // ✅ allow cross-site cookies
+                secure: process.env.NODE_ENV === "production",  
+                sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
                 maxAge: 24 * 60 * 60 * 1000
             })
             .json({
@@ -98,6 +100,84 @@ export const login = async (req, res) => {
             success: false,
             message: "Failed to Login"
         });
+    }
+};
+
+export const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) {
+            return res.status(400).json({ success: false, message: "Email is required" });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        const resetToken = crypto.randomBytes(32).toString("hex");
+        const hashToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+
+        user.resetPasswordToken = hashToken;
+        user.resetPasswordExpire = Date.now() + 2 * 60 * 1000;
+        await user.save();
+
+        const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.SMTP_EMAIL,
+                pass: process.env.SMTP_PASS
+            }
+        });
+
+        await transporter.sendMail({
+            from: process.env.SMTP_EMAIL,
+            to: user.email,
+            subject: "Password Reset Request",
+            html: `<p>Click here to reset your password:</p> 
+                   <a href="${resetUrl}">${resetUrl}</a>`
+        });
+
+        return res.json({
+            success: true,
+            message: "Reset password email sent"
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Something went wrong" });
+    }
+};
+
+export const resetPassword = async (req, res) => {
+    try {
+        const { token } = req.params;
+        const { password } = req.body;
+
+        const hashToken = crypto.createHash("sha256").update(token).digest("hex");
+
+        const user = await User.findOne({
+            resetPasswordToken: hashToken,
+            resetPasswordExpire: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({ success: false, message: "Invalid or expired token" });
+        }
+
+        user.password = await bcrypt.hash(password, 10);
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save();
+
+        return res.json({
+            success: true,
+            message: "Password reset successfully"
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Failed to reset password" });
     }
 };
 

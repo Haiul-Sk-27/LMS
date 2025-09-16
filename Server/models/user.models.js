@@ -26,6 +26,8 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:""
     },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
     enrolledCourses: [
         {
             type:mongoose.Schema.Types.ObjectId,
