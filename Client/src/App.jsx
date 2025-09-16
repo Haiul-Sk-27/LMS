@@ -13,6 +13,8 @@ import CreateCourse from "./Pages/admin/CreateCourse"
 import UpdateCourse from "./Pages/admin/UpdateCourse"
 import CreateLeacture from "./Pages/admin/CreateLeacture"
 import CourseDetails from "./Pages/CourseDetails"
+import ForgotPassword from "./Pages/auth/ForgotPassword"
+import ResetPassword from "./Pages/auth/ResetPassword"
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
   {
     path:"/courses/:courseId",
     element: <><Navbar/><CourseDetails/></>
+   },
+   {
+    path:"/forgot-password",
+    element:<><ForgotPassword/></>
+   },
+   {
+    path:"reset-password/:token",
+    element:<><ResetPassword/></>
    },
   {
     path:"/admin",

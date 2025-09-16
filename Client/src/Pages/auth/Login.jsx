@@ -12,64 +12,69 @@ const Login = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [input, setInput] = useState({
-        email:"",
-        password:""
+        email: "",
+        password: ""
     })
-    const handleChange =(e)=>{
-        
-        const {name, value} = e.target
-        setInput((prev)=> ({
+    const handleChange = (e) => {
+
+        const { name, value } = e.target
+        setInput((prev) => ({
             ...prev,
-            [name]:value,
+            [name]: value,
         }))
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(input);
         try {
             const response = await axios.post('https://lms-yuq1.onrender.com/api/v1/user/login', input, {
-                headers:{
-                    "Content-Type":"application/json"
+                headers: {
+                    "Content-Type": "application/json"
                 },
-                withCredentials:true
+                withCredentials: true
             })
-            if(response.data.success){
+            if (response.data.success) {
                 navigate('/')
                 dispatch(setUser(response.data.user))
                 toast.success(response.data.message)
-            }else{
+            } else {
                 toast.error("something went wrong")
             }
         } catch (error) {
             console.log(error)
         }
-        
+
     }
     return (
         <div className='flex justify-center items-center min-h-screen bg-gray-100'>
             <div className='bg-white shadow-lg rounded-lg p-8 max-w-md w-full'>
                 <h1 className='text-2xl font-bold text-center text-gray-800 mb-4'>Welcome Back</h1>
                 <p className='text-center text-gray-600 mb-8'>Please Login in to your Account</p>
-               
+
                 <div className='mb-2'>
                     <Label className="mb-1">Email Address</Label>
-                    <Input placeholder="Enter Your Email" 
-                    type="email"
-                    name="email" 
-                    value={input.email} 
-                    onChange={handleChange}
+                    <Input placeholder="Enter Your Email"
+                        type="email"
+                        name="email"
+                        value={input.email}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className='mb-2'>
                     <Label className="mb-1">Password</Label>
-                    <Input placeholder="Enter Your Password" 
-                    type="password"
-                     name="password" 
-                     value={input.password} 
-                     onChange={handleChange}
+                    <Input placeholder="Enter Your Password"
+                        type="password"
+                        name="password"
+                        value={input.password}
+                        onChange={handleChange}
                     />
+                    <div className='mt-1 w-full'>
+                        <Link to="/forgot-password"
+                            className='block text-right text-sm text-blue-500 cursor-pointer hover:underline hover:text-blue-700'>
+                            Forgot Password
+                        </Link>
+                    </div>
                 </div>
-                
+
                 <Button onClick={handleSubmit} className="w-full bg-blue-500 hover:bg-blue-600">Login</Button>
                 {/* divider */}
                 <div className='flex items-center my-6'>
