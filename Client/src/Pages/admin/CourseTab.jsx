@@ -105,7 +105,7 @@ const CourseTab = () => {
                 withCredentials:true
             })
             if(res.data.success){
-                navigate(`lecture`)
+               navigate(`/admin/course/${id}/lecture`);
                 toast.success(res.data.message)
                 dispatch([...course,setCourse(res.data.course)])
             }
@@ -159,10 +159,10 @@ const CourseTab = () => {
                         <Label className="mb-1">Subtitle</Label>
                         <Input value={input.subTitle} onChange={changeEventHandler} type="text" name="subTitle" placeholder="Ex. Become a Fullstack dveloper from zero to hero in 2 months" />
                     </div>
-                    <div>
+                    {/* <div>
                         <Label className="mb-1">Description</Label>
-                         <JoditEditor type="text" value={input.description} onChange={changeEventHandler} placeholder="Ex. Become a Fullstack developer from zero to hero in 2 months" />
-                    </div>
+                       <JoditEditor type="text" value={input.description} onChange={changeEventHandler} placeholder="Ex. Become a Fullstack developer from zero to hero in 2 months" />
+                    </div> */}
                     <div className='flex md:flex-row flex-wrap gap-1 items-center md:gap-5'>
                         <div>
                             <Label className="mb-1">Category</Label>
