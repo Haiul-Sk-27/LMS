@@ -15,7 +15,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3002/api/v1/user/forget-password",
+        "https://lms-yuq1.onrender.com/api/v1/user/forget-password",
         { email },
         { headers: { "Content-Type": "application/json" } }
       );
