@@ -82,10 +82,43 @@ export const login = async (req, res) => {
             { expiresIn: "1d" }
         );
 
+            // ✉️ send login success email
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASS
+      }
+    });
+
+    await transporter.sendMail({
+      from: `"Your App Name" <${process.env.SMTP_EMAIL}>`,
+      to: user.email,
+      subject: "✅ Login Successful",
+      html: `
+      <div style="font-family: Arial, sans-serif; line-height:1.6; color:#333; max-width:600px; margin:auto; border:1px solid #eee; border-radius:8px; overflow:hidden;">
+        <div style="background:#2563eb; color:white; padding:16px; text-align:center;">
+          <h2 style="margin:0;">Your App Name</h2>
+        </div>
+        <div style="padding:24px;">
+          <h3>Hello ${user.name || "User"},</h3>
+          <p>This is to let you know that your account was successfully <strong>logged in</strong>.</p>
+
+          <p>📅 <strong>Login time:</strong> ${new Date().toLocaleString()}</p>
+
+          <p>If this wasn’t you, please <a href="haiulsk037@gmail.com" style="color:#2563eb; text-decoration:none;">contact support immediately</a> and reset your password.</p>
+        </div>
+        <div style="background:#f9fafb; padding:16px; font-size:12px; text-align:center; color:#666;">
+          <p>© ${new Date().getFullYear()} Your App Name. All rights reserved.</p>
+        </div>
+      </div>
+      `
+    });
+
         return res
             .cookie("token", token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",  
+                secure: process.env.NODE_ENV === "production",
                 sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
                 maxAge: 24 * 60 * 60 * 1000
             })
@@ -135,14 +168,39 @@ export const forgotPassword = async (req, res) => {
         await transporter.sendMail({
             from: process.env.SMTP_EMAIL,
             to: user.email,
-            subject: "Password Reset Request",
-            html: `<p>Click here to reset your password:</p> 
-                   <a href="${resetUrl}">${resetUrl}</a>`
+            subject: "🔐 Password Reset Request",
+            html: `
+  <div style="font-family: Arial, sans-serif; line-height:1.6; color:#333; max-width:600px; margin:auto; border:1px solid #eee; border-radius:8px; overflow:hidden;">
+    <div style="background:#2563eb; color:white; padding:16px; text-align:center;">
+      <h2 style="margin:0;">${user.name}</h2>
+    </div>
+    <div style="padding:24px;">
+      <h3>Hello ${user.name || "User"},</h3>
+      <p>We received a request to reset your password. If this was you, please click the button below to reset your password:</p>
+      
+      <div style="text-align:center; margin:24px 0;">
+        <a href="${resetUrl}" 
+           style="background:#2563eb; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; display:inline-block; font-weight:bold;">
+          Reset My Password
+        </a>
+      </div>
+
+      <p>If the button above doesn’t work, you can also copy and paste the following link into your browser:</p>
+      <p style="word-break: break-all; color:#2563eb;">${resetUrl}</p>
+
+      <p><strong>Note:</strong> This link is valid for only <b>2 minutes</b>. If you did not request this, you can safely ignore this email.</p>
+    </div>
+    <div style="background:#f9fafb; padding:16px; font-size:12px; text-align:center; color:#666;">
+      <p>© ${new Date().getFullYear()} LMS. All rights reserved.</p>
+    </div>
+  </div>
+  `
         });
 
         return res.json({
             success: true,
-            message: "Reset password email sent"
+            message: "Reset password email sent",
+            resetUrl
         });
     } catch (error) {
         console.log(error);
@@ -171,6 +229,45 @@ export const resetPassword = async (req, res) => {
         user.resetPasswordExpire = undefined;
         await user.save();
 
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.SMTP_EMAIL,
+                pass: process.env.SMTP_PASS
+            }
+        });
+
+        await transporter.sendMail({
+            from: process.env.SMTP_EMAIL,
+            to: user.email,
+            subject: "✅ Password reset successful",
+            html: `
+  <div style="font-family: Arial, sans-serif; line-height:1.6; color:#333; max-width:600px; margin:auto; border:1px solid #eee; border-radius:8px; overflow:hidden;">
+    <div style="background:#16a34a; color:white; padding:16px; text-align:center;">
+      <h2 style="margin:0;">${user.name}</h2>
+    </div>
+    <div style="padding:24px;">
+      <h3>Hello ${user.name || "User"},</h3>
+      <p>This is a confirmation that your password has been <strong>reset successfully</strong>.</p>
+      
+      <p>📅 <strong>Reset on:</strong> ${new Date().toLocaleString()}</p>
+      
+      <p>If this was <strong>not you</strong>, please <a href="mailto:support@yourapp.com" style="color:#2563eb; text-decoration:none;">contact our support team</a> immediately to secure your account.</p>
+      
+      <div style="margin:24px 0; text-align:center;">
+        <a href="${process.env.FRONTEND_URL}/login"
+           style="background:#16a34a; color:white; text-decoration:none; padding:12px 24px; border-radius:6px; display:inline-block; font-weight:bold;">
+          Go to Login
+        </a>
+      </div>
+    </div>
+    <div style="background:#f9fafb; padding:16px; font-size:12px; text-align:center; color:#666;">
+      <p>© ${new Date().getFullYear()} Your App Name. All rights reserved.</p>
+    </div>
+  </div>
+  `
+        })
+
         return res.json({
             success: true,
             message: "Password reset successfully"
@@ -198,7 +295,7 @@ export const logout = async (__, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
-        const userId = req.id; 
+        const userId = req.id;
         const { name, description } = req.body;
         const file = req.file;
 
@@ -211,10 +308,10 @@ export const updateProfile = async (req, res) => {
         }
 
         const user = await User.findById(userId).select("-password");
-        
+
         if (user.photoUrl) {
             const oldFilePath = path.join(process.cwd(), user.photoUrl);
-            console.log("Deleting old file:", oldFilePath); 
+            console.log("Deleting old file:", oldFilePath);
             fs.unlink(oldFilePath, (err) => { });
         }
 
