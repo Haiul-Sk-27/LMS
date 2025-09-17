@@ -16,11 +16,12 @@ const CourseDetails = () => {
     const selectedCourse = course.find(course => course._id === courseId)
     const [courseLecture, setCourseLecture] = useState(null)
     const { user } = useSelector(store => store.auth)
+    console.log("thumbnail",course)
 
     useEffect(()=> {
         const getCourseLecture = async()=> {
             try {
-                const res = await axios.get(`https://lms-yuq1.onrender.com/api/v1/course/${courseId}/lecture`, {withCredentials:true})
+                const res = await axios.get(`https://lms-yuq1.onrender.com/api/v1/course/${courseId}/lectures`, {withCredentials:true})
                 if(res.data.success){
                     setCourseLecture(res.data.lectures)
                 }
@@ -51,7 +52,7 @@ const CourseDetails = () => {
                 {/* Course overview section */}
                 <div className='p-6'>
                     <div className='flex flex-col lg:flex-row lg:space-x-8'>
-                        <img src={`https://lms-yuq1.onrender.com${course.courseThumbnail}`} alt="Thumbnaik" className='w-full lg:w-1/3 rounded-md mb-4 lg:mb-0' />
+                        <img src={`https://lms-yuq1.onrender.com${course.courseThumbnail}`} alt="Thumbnail" className='w-full lg:w-1/3 rounded-md mb-4 lg:mb-0' />
                         <div>
                             <p className='text-gray-800 mb-4 font-semibold capitalize'>{selectedCourse.subTitle}</p>
                             <p className='mb-4 text-gray-700' dangerouslySetInnerHTML={{ __html: selectedCourse.description }} />

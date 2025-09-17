@@ -75,7 +75,7 @@ const Profile = () => {
         <div className='flex flex-col items-center md:flex-row md:items-start space-y-8 md:space-y-0 md:space-x-12'>
           {/* profile picture */}
           <div className='w-40 h-40 rounded-full overflow-hidden border-4 border-blue-500 shadow-lg'>
-            <img src={`http://localhost:3002${user.photoUrl}`} alt="" className='w-full h-full object-cover' />
+            <img src={`https://lms-yuq1.onrender.com${user.photoUrl}`} alt="" className='w-full h-full object-cover' />
           </div>
 
           {/* user info */}

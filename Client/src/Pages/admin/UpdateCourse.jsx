@@ -8,7 +8,7 @@ const UpdateCourse = () => {
     <div className='md:p-10 p-4'>
         <div className='flex items-center justify-between mb-5'>
             <h1 className='font-bold text-xl'>Add detail informatin regarding course</h1>
-            <Link to="leacture">
+            <Link to="lecture">
                 <Button className="hover:text-blue-600">Go to lecture page</Button>
             </Link>
         </div>
