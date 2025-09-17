@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from "path";
 import crypto from "crypto"
 import nodemailer from "nodemailer"
+import { use } from "react";
 
 export const register = async (req, res) => {
     try {
@@ -98,7 +99,7 @@ export const login = async (req, res) => {
       html: `
       <div style="font-family: Arial, sans-serif; line-height:1.6; color:#333; max-width:600px; margin:auto; border:1px solid #eee; border-radius:8px; overflow:hidden;">
         <div style="background:#2563eb; color:white; padding:16px; text-align:center;">
-          <h2 style="margin:0;">Your App Name</h2>
+          <h2 style="margin:0;">Hi, ${user.name}</h2>
         </div>
         <div style="padding:24px;">
           <h3>Hello ${user.name || "User"},</h3>
