@@ -42,7 +42,6 @@ const Login = () => {
         } catch (error) {
             console.log(error)
         }
-
     }
     return (
         <div className='flex justify-center items-center min-h-screen bg-gray-100'>
@@ -74,7 +73,6 @@ const Login = () => {
                         </Link>
                     </div>
                 </div>
-
                 <Button onClick={handleSubmit} className="w-full bg-blue-500 hover:bg-blue-600">Login</Button>
                 {/* divider */}
                 <div className='flex items-center my-6'>

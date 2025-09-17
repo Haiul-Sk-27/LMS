@@ -18,60 +18,64 @@ import ResetPassword from "./Pages/auth/ResetPassword"
 
 const router = createBrowserRouter([
   {
-    path:'/',
-    element:<><Navbar/><Home/></>
+    path: '/',
+    element: <><Navbar /><Home /></>
   },
   {
-    path:'/courses',
-    element:<><Navbar/><Course/></>
+    path: '/courses',
+    element: <><Navbar /><Course /></>
   },
   {
-    path:"/login",
-    element:<><Navbar/><Login/></>
+    path: "/login",
+    element: <><Navbar /><Login /></>
   },
   {
-    path:"/signup",
-    element:<><Navbar/><Signup/></>
+    path: "/signup",
+    element: <><Navbar /><Signup /></>
   },
   {
-    path:"/profile",
-    element:<><Navbar/><Profile/></>
+    path: "/profile",
+    element: <><Navbar /><Profile /></>
   },
   {
-    path:"/courses/:courseId",
-    element: <><Navbar/><CourseDetails/></>
-   },
+    path: "/courses/:courseId",
+    element: <><Navbar /><CourseDetails /></>
+  },
+  {
+    path: "/forgot-password",
+    element: <><ForgotPassword /></>
+  },
+  // {
+  //   path: "/reset-password",
+  //   element: <ResetPassword />
+  // },
    {
-    path:"/forgot-password",
-    element:<><ForgotPassword/></>
-   },
-   {
-    path:"reset-password/:token",
+    path:"/reset-password/:token",
     element:<><ResetPassword/></>
    },
   {
-    path:"/admin",
-    element:<><Navbar/><Admin/></>,
-    children:[
+    path: "/admin",
+    element: <><Navbar /><Admin /></>,
+    children: [
       {
         path: "dashboard",
-        element:<Dashbord/>
+        element: <Dashbord />
       },
       {
-        path:"course",
-        element:<Courses/>
+        path: "course",
+        element: <Courses />
       },
       {
-        path:"course/create",
-        element:<CreateCourse/>
+        path: "course/create",
+        element: <CreateCourse />
       },
       {
         path: "course/:courseId",
-        element:<UpdateCourse/>
+        element: <UpdateCourse />
       },
       {
         path: "course/:courseId/leacture",
-        element:<CreateLeacture/>
+        element: <CreateLeacture />
       },
     ]
   }
@@ -81,8 +85,8 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router}/>
-      <Footer/>
+      <RouterProvider router={router} />
+      <Footer />
     </>
   )
 }

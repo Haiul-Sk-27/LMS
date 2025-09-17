@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
 const ForgotPassword = () => {
@@ -17,10 +17,11 @@ const ForgotPassword = () => {
       const response = await axios.post(
         "https://lms-yuq1.onrender.com/api/v1/user/forget-password",
         { email },
-        { headers: { "Content-Type": "application/json" } }
+        { headers: { "Content-Type": "application/json" }}
       );
 
-      navigate('/reset-password', { state: { email } });
+      const path = response.data.resetUrl.replace("http://localhost:5173", "");
+      navigate(path);
       toast.success(response.data.message||"Email not exists")
     } catch (error) {
       console.log("Server Error", error);

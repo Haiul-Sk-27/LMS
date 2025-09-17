@@ -22,10 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// // Static file serving
-// app.use("/uploads/profilePics", express.static(path.join(process.cwd(), "uploads/profilePic")));
+app.use("/uploads/profile", express.static(path.join(process.cwd(), "uploads/profile")));
 
-// app.use("/uploads/thumbnails", express.static(path.join(process.cwd(), "uploads/thumbnails")));
+
+app.use("/uploads/thumbnails",express.static(path.join(process.cwd(), "uploads/thumbnails")));
 
 
 // Routes

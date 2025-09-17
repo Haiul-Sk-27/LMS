@@ -62,7 +62,7 @@ const Navbar = () => {
                                     }
                                     <Link to="/profile">
                                         <Avatar>
-                                            <AvatarImage src={`http://localhost:3002${user.photoUrl}`} alt="@shadcn" />
+                                            <AvatarImage src={`https://lms-yuq1.onrender.com${user.photoUrl}`} alt="@shadcn" />
                                             <AvatarFallback>CN</AvatarFallback>
                                         </Avatar>
                                     </Link>

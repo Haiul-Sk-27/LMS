@@ -15,6 +15,8 @@ const CourseDetails = () => {
     const { course } = useSelector(store => store.course)
     const selectedCourse = course.find(course => course._id === courseId)
     const [courseLecture, setCourseLecture] = useState(null)
+    const { user } = useSelector(store => store.auth)
+
     useEffect(()=> {
         const getCourseLecture = async()=> {
             try {
@@ -49,7 +51,7 @@ const CourseDetails = () => {
                 {/* Course overview section */}
                 <div className='p-6'>
                     <div className='flex flex-col lg:flex-row lg:space-x-8'>
-                        <img src={selectedCourse.courseThumbnail} alt="Thumbnail" className='w-full lg:w-1/3 rounded-md mb-4 lg:mb-0' />
+                        <img src={`https://lms-yuq1.onrender.com${course.courseThumbnail}`} alt="Thumbnaik" className='w-full lg:w-1/3 rounded-md mb-4 lg:mb-0' />
                         <div>
                             <p className='text-gray-800 mb-4 font-semibold capitalize'>{selectedCourse.subTitle}</p>
                             <p className='mb-4 text-gray-700' dangerouslySetInnerHTML={{ __html: selectedCourse.description }} />
@@ -127,7 +129,7 @@ const CourseDetails = () => {
                     <h2 className='text-xl font-bold text-gray-800 mb-4'>Instructor</h2>
                     <div className='flex items-center space-x-4'>
                         <img 
-                        src={selectedCourse.creator.photoUrl} 
+                        src={`https://lms-yuq1.onrender.com${user.photoUrl}`}
                         alt="instructor" 
                         className='w-16 h-16 rounded-full' 
                         />

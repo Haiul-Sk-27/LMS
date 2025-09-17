@@ -6,7 +6,7 @@ import fs from 'fs';
 import path from "path";
 import crypto from "crypto"
 import nodemailer from "nodemailer"
-import { use } from "react";
+
 
 export const register = async (req, res) => {
     try {
@@ -126,7 +126,8 @@ export const login = async (req, res) => {
             .json({
                 message: `Welcome back ${user.name}`,
                 success: true,
-                user
+                user,
+                token
             });
     } catch (error) {
         console.log(error);
