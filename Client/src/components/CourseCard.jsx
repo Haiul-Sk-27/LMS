@@ -11,11 +11,11 @@ const CourseCard = ({course}) => {
 
   console.log('CourseUSer:',user)
   return (
-    <Card key={course._id} className="bg-white shadow-lg">
+    <Card key={course._id} className="bg-white shadow-lg mb-3">
       <img src={`https://lms-yuq1.onrender.com${course.courseThumbnail}`} alt="" className='w-full h-48 object-cover'/>
-      <div className='p-6'>
+      <div className='p-2'>
         <h2 className='text-xl font-semibold text-gray-800 mb-3'>{course.courseTitle}</h2>
-        <p className='text-gray-600 mb-4'>{course.subTitle}</p>
+        <p className='text-gray-800 mb-4'>{course.subTitle}</p>
         <Button onClick={()=>navigate(user ? `/courses/${course._id}`:"/login")}>Learn More</Button>
       </div>
     </Card>
